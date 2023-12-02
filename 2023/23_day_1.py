@@ -1,14 +1,14 @@
-# advent of code 2023.py
+# 23_day_1.py
 # https://adventofcode.com/2023
 
 
-with open('./2023/elf.txt', 'r') as elf_file:
-    elf_list = elf_file.read().split("\n")
+with open('./2023/puzzle_input_day1.txt', 'r') as file:
+    content = file.read().split("\n")
 
 
-def sum_calibration_numbers(elf_list):
+def sum_calibration_numbers(content):
     extracted_digits = []
-    for line in elf_list:
+    for line in content:
         digits = []
         for char in line:
             if char.isdigit():
@@ -25,7 +25,7 @@ def sum_calibration_numbers(elf_list):
     return total_sum
 
 
-def sum_calibration_strings(elf_list):
+def sum_calibration_strings(content):
 
     # Test case
     # elf_list = "bxfour3two2sb4twondmfdpsz"
@@ -37,7 +37,7 @@ def sum_calibration_strings(elf_list):
 
     num_sum = []
 
-    for line in elf_list:
+    for line in content:
 
         num_extract = []
 
@@ -69,5 +69,5 @@ def sum_calibration_strings(elf_list):
     return total_sum
 
 
-print(sum_calibration_numbers(elf_list))  # correct sum 55386
-print(sum_calibration_strings(elf_list))  # correct sum 54824
+print(sum_calibration_numbers(content))  # correct sum 55386
+print(sum_calibration_strings(content))  # correct sum 54824
