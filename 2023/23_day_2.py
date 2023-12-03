@@ -3,44 +3,87 @@
 
 import json
 
+# Max number of cubes per game
+RED_MAX = 12
+GREEN_MAX = 13
+BLUE_MAX = 14
+
 # Read the content from the text file
 with open('./2023/puzzle_input_day2.txt', 'r') as file:
     content = file.readlines()
 
-# Initialize an empty list to store dictionaries
-game_list = []
 
-# Process each line in the content
-for line in content:
-    # Split the line based on the colon to get the game number and the rest of the data
-    game_number, game_data = line.split(':')
+def create_json(content):
 
-    # Extract individual game results by splitting based on semicolon
-    results = [result.strip() for result in game_data.split(';')]
+    # Initialize an empty list to store dictionaries
+    game_list = []
 
-    # Initialize a dictionary for the current game. Remove the word 'Game' to get just the number
-    # and convert it to an integer. Append the results to the dictionary. Append the dictionary
-    # to the list. Repeat for each game in the file.
-    # Create an empty list to store the game results
+    # Process each line in the content
+    for line in content:
+        # Split the line based on the colon to get the game number and the rest of the data
+        game_number, game_data = line.split(':')
 
-    game_dict = {'Game Number': int(game_number.strip("Game")), 'Results': []}
+        # Extract individual game results by splitting based on semicolon
+        results = [result.strip() for result in game_data.split(';')]
 
-    # Process each result in the game and append to the dictionary
-    for result in results:
-        # Split each result based on commas to get color and count
-        color_data = [item.strip().split() for item in result.split(',')]
-        colors = {color: int(count) for count, color in color_data}
-        game_dict['Results'].append(colors)
+        # Initialize a dictionary for the current game. Remove the word 'Game' to get just the ID
+        # and convert it to an integer. Append the results to the dictionary. Append the dictionary
+        # to the list. Repeat for each game in the file.
 
-    # Append the game dictionary to the list
-    game_list.append(game_dict)
+        game_dict = {'Game ID': int(game_number.strip("Game")), 'Results': []}
 
-# Convert the list of dictionaries to JSON format
-json_data = json.dumps(game_list, indent=2)
+        # Process each result in the game and append to the dictionary
+        for result in results:
+            # Split each result based on commas to get colour and count
+            colour_data = [item.strip().split() for item in result.split(',')]
+            colours = {colour: int(count) for count, colour in colour_data}
+            game_dict['Results'].append(colours)
 
-# Print or save the JSON data
-print(json_data[:1000])
+        # Append the game dictionary to the list
+        game_list.append(game_dict)
 
-# Save the JSON data to a file
-# with open('output.json', 'w') as output_file:
-#     output_file.write(json_data)
+    return game_list
+
+
+def convert_to_json(data):
+    '''
+    Extra function to convert the list of dictionaries and return JSON and write to a file
+    Not required
+    '''
+    json_data = json.dumps(data)
+    with open('output.json', 'w') as f:
+        f.write(json_data)
+        f.close()
+        return json_data
+
+
+def sum_of_possible_games(game_list):
+    '''
+    Which games would have been possible if the bag contained only
+    12 red cubes, 13 green cubes, and 14 blue cubes?
+
+    Example JSON
+    {'Game ID': 1, 'Results': [{'green': 20, 'red': 3, 'blue': 2}, {'red': 9, 'blue': 16, 'green': 18}, {'blue': 6, 'red': 19, 'green': 10}, {'red': 12, 'green': 19, 'blue': 11}]}
+    '''
+    possible_games = []
+    game_ids = []
+
+    for game in game_list:
+        max_count = 0
+        for game_results in game['Results']:
+            # Default value of 0 if green doesn't exist
+            result_red = game_results.get('red', 0)
+            result_green = game_results.get('green', 0)
+            result_blue = game_results.get('blue', 0)
+            if (result_red > RED_MAX) or (result_green > GREEN_MAX) or (result_blue > BLUE_MAX):
+                max_count += 1
+        if max_count == 0:
+            possible_games.append(game)
+            game_ids.append(game['Game ID'])
+
+    return sum(game_ids)
+
+
+game_list = create_json(content)
+print('Sum of possible games: ', sum_of_possible_games(
+    game_list))  # Correct answer 2545
