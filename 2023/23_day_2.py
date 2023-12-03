@@ -12,6 +12,10 @@ BLUE_MAX = 14
 with open('./2023/puzzle_input_day2.txt', 'r') as file:
     content = file.readlines()
 
+# Test data
+# with open('./2023/test_input.txt', 'r') as file:
+#     test_content = file.readlines()
+
 
 def create_json(content):
 
@@ -84,6 +88,39 @@ def sum_of_possible_games(game_list):
     return sum(game_ids)
 
 
+def power_of_games(game_list):
+    '''
+    What is the minimum number of cubes required to play each game
+    Return the power of RGB in a list
+
+    Test JSON
+    {'Game ID': 1, 'Results': [{'green': 20, 'red': 3, 'blue': 2}, {'red': 9, 'blue': 16, 'green': 18}, {'blue': 6, 'red': 19, 'green': 10}, {'red': 12, 'green': 19, 'blue': 11}]}
+    Red = 19
+    Green = 20
+    Blue = 16
+    Power = 19*20*16 = 6,080
+
+    '''
+    power_of_games = []
+
+    for game in game_list:
+        red_max = 0
+        green_max = 0
+        blue_max = 0
+        for game_results in game['Results']:
+            red_max = max(red_max, game_results.get('red', 0))
+            green_max = max(green_max, game_results.get('green', 0))
+            blue_max = max(blue_max, game_results.get('blue', 0))
+
+        power_of_games.append(red_max*green_max*blue_max)
+
+    return sum(power_of_games)
+
+
 game_list = create_json(content)
+
 print('Sum of possible games: ', sum_of_possible_games(
     game_list))  # Correct answer 2545
+
+print('Sum of power of games: ', power_of_games(
+    game_list))  # Correct answer 78111
