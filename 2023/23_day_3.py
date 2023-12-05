@@ -3,7 +3,28 @@
 
 from dataclasses import dataclass
 
-filename = './2023/puzzle_input_day3.txt'
+# filename = './2023/puzzle_input_day3.txt'
+filename = './2023/input_test.txt'
+
+'''
+Part I
+Here is an example engine schematic:
+
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..
+
+In this schematic, two numbers are not part numbers because they are not adjacent to a symbol: 114 (top right) and 58 (middle right).
+Every other number is adjacent to a symbol and so is a part number; their sum is 4361.
+
+'''
 
 
 @dataclass
@@ -100,8 +121,7 @@ def find_numbers(input_list):
 def adjacent_symbols(number_list, numbers):
     '''
     For each number, check that boundary around it for a symbol
-    First check above, below, left and right
-    Get a
+    Check above, below, left and right
 
     '''
     row_above_slice = ''
@@ -164,7 +184,28 @@ def adjacent_symbols(number_list, numbers):
 
 
 number_list = get_data(filename)
-
 numbers = find_numbers(number_list)
+print('Numbers with adjacent symbols', adjacent_symbols(number_list, numbers))
 
-print(adjacent_symbols(number_list, numbers))
+'''
+Part II
+
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..
+
+In this schematic, there are two gears. The first is in the top left; it has part numbers 467 and 35, so its gear ratio is 16345.
+The second gear is in the lower right; its gear ratio is 451490.
+(The * adjacent to 617 is not a gear because it is only adjacent to one part number.)
+Adding up all of the gear ratios produces 467835.
+
+When a gear * is found, associate the number to the gear
+
+'''
