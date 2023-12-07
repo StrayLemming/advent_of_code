@@ -18,7 +18,7 @@ Note to self: next time split the functions as they were getting too big and mes
 from dataclasses import dataclass
 from typing import List
 
-filename = './2023/puzzle_input_day3.txt'
+filename = './2023/puzzle_input_data/puzzle_input_day3.txt'
 # filename = './2023/puzzle_input_test_day3.txt'
 
 
