@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 2023/test_input.txt
+readme.md
+.vscode/launch.json
