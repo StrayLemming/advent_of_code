@@ -1,5 +1,5 @@
 '''
-23_day_5.py
+23_day_5.2.py
 https://adventofcode.com/2023
 Day 5: If You Give A Seed A Fertilizer
 
@@ -11,8 +11,8 @@ Very elegant solution
 
 import re
 
-# filename = './2023/puzzle_input_data/puzzle_input_test_day5.txt'
-filename = './2023/puzzle_input_data/puzzle_input_day5.txt'
+filename = './2023/puzzle_input_data/puzzle_input_test_day5.txt'
+# filename = './2023/puzzle_input_data/puzzle_input_day5.txt'
 
 
 def locations(intervals):
@@ -26,9 +26,11 @@ def locations(intervals):
                 a, b, delta = mapping
                 c = b + delta - 1
                 t = b - a
+                # Required for Part I
                 if b <= x <= y <= c:
                     images.append((x - t, y - t))
                     break
+                # Next two conditions required for Part II
                 elif b <= x <= c < y:
                     images.append((x - t, c - t))
                     intervals.append((c + 1, y))
