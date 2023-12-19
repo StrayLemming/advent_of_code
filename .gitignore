@@ -161,6 +161,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-2023/puzzle_input_data
+2023/puzzle_input_data/
 readme.md
 .vscode/launch.json
