@@ -5,6 +5,10 @@ Day 7: Camel Cards Part II
 
 J is a wild card
 
+Tricky card combos!
+jjj23
+jj234
+
 '''
 
 # filename = './2023/puzzle_input_data/puzzle_input_test_day7.txt'
@@ -53,7 +57,7 @@ def check_combos(hand, bid):
             card_combo['full_house'].append((hand, int(bid)))
 
     elif 3 in card_count.values():
-        if j_count == 1:
+        if j_count == 1 or j_count == 3:
             card_combo['four_kind'].append((hand, int(bid)))
         else:
             card_combo['three_kind'].append((hand, int(bid)))
@@ -67,7 +71,7 @@ def check_combos(hand, bid):
             card_combo['two_pair'].append((hand, int(bid)))
 
     elif 2 in card_count.values():
-        if j_count == 1:
+        if j_count == 1 or j_count == 2:
             card_combo['three_kind'].append((hand, int(bid)))
         else:
             card_combo['one_pair'].append((hand, int(bid)))
