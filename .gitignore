@@ -162,5 +162,4 @@ cython_debug/
 #.idea/
 
 2023/puzzle_input_data/
-readme.md
-.vscode/launch.json
+.vscode/
